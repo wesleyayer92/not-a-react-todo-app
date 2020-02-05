@@ -5,10 +5,12 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      text: ''
+      text: '',
+      items: []
     };
   }
   render() {
+    console.log(this.state);
     return (
       <div>
         <form onSubmit={this._handleSubmit}>
@@ -18,20 +20,30 @@ class App extends React.Component {
             placeholder="Type something here!"
           />
         </form>
+        
+        <div>
+          {this.state.items.map((item) => {
+            <li>
+              {item}
+            </li>
+          })}
+        </div>
       </div>
     );
   }
 
   _handleSubmit = (event) => {
     event.preventDefault();
-    console.log('You just submitted');
+    this.setState({
+      items: this.state.items.push(this.state.text)
+    });
   }
 
   _updateText = (event) => {
     console.log(event.target.value);
-    // this.setState({
-    //   text: event.target.value
-    // })
+    this.setState({
+      text: event.target.value
+    })
   }
 }
 
